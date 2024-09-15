@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyARh4T4LothfnHVxgp1SVxmpy3NA6YAU5Y',
+  apiKey: process.env.API_KEY,
   authDomain: 'jsproject-6252d.firebaseapp.com',
   databaseURL: 'https://jsproject-6252d-default-rtdb.firebaseio.com',
   projectId: 'jsproject-6252d',
