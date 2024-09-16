@@ -8,6 +8,17 @@ function Furniture() {
     return JSON.parse(localval)
   })
 
+  const updateItem = (index) => {
+    setEditingIndex(index)
+    setFurniture(furniture[index].text)
+  }
+
+  function deleteItem(id) {
+    setFurniture((currentItems) => {
+      return currentItems.filter((i) => i.id !== id)
+    })
+  }
+
   return (
     <>
       {/* furniture section */}
@@ -28,8 +39,9 @@ function Furniture() {
               ? furniture.map((i) => {
                   return (
                     <>
-                      <div className='col-md-6 col-lg-4'>
-                        key={i.id}
+                      <div
+                        className='col-md-6 col-lg-4'
+                        key={i.id}>
                         <div className='box'>
                           <div className='img-box'>
                             <img

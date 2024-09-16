@@ -6,6 +6,14 @@ function Additem() {
   const [price, setPrice] = useState(null)
   const [img, setImg] = useState([])
 
+  const [item, setItem] = useState(() => {
+    localStorage.setItem('FURNITURES', JSON.stringify(Fi))
+  })
+
+  useEffect(() => {
+    localStorage.setItem('FURNITURES', JSON.stringify(item))
+  }, [item])
+
   const b64Img = (img) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
@@ -14,26 +22,39 @@ function Additem() {
       reader.onerror = () => reject(error)
     })
   }
-
   const nav = useNavigate()
 
-  useEffect(() => {
-    localStorage.setItem('FURNITURES', JSON.stringify(Fi))
-  }, [Fi])
+  function addFun(title, price, image) {
+    setItem((currentitems) => {
+      return [
+        ...currentitems,
+        { id: crypto.randomUUID(), title: title, price: price, img: image },
+      ]
+    })
+  }
+  const clearInput = () => {
+    setTitle('')
+    setPrice(null)
+    setImg([])
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const furnitureItem = new FormData()
     const image = await b64Img(img)
-    furnitureItem.append('title', title)
-    furnitureItem.append('price', price)
-    if (image !== null) {
-      furnitureItem.append('img', image)
-    } else {
-      alert('select an image')
-    }
-    const Fi = Object.fromEntries(furnitureItem)
-    localStorage.setItem('FURNITURES', Fi)
+    console.log(item)
+
+    // const furnitureItem = new FormData()
+    // furnitureItem.append('id', crypto.randomUUID())
+    // furnitureItem.append('title', title)
+    // furnitureItem.append('price', price)
+    // if (image !== null) {
+    //   furnitureItem.append('img', image)
+    // } else {
+    //   alert('select an image')
+    // }
+    // const Fi = Object.fromEntries(furnitureItem)
+    addFun(title, price, image)
+    clearInput()
   }
 
   return (
