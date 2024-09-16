@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { AuthContext } from '../contexts/Authcontext'
-import { auth } from '../database/databaseConfig.jsx'
+import { auth, app } from '../database/databaseConfig.js'
 
 function Login() {
   const [mail, setMail] = useState('')

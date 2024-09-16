@@ -8,26 +8,6 @@ function Furniture() {
     return JSON.parse(localval)
   })
 
-  useEffect(() => {
-    localStorage.setItem('ITEMS', JSON.stringify(furniture))
-  }, [furniture])
-
-  const updateItem = (index) => {
-    setEditingIndex(index)
-    setFurniture(furniture[index].text)
-  }
-
-  function deleteItem(id) {
-    setFurniture((currentItems) => {
-      return currentItems.filter((i) => i.id !== id)
-    })
-  }
-
-  const clearInput = () => {
-    setTitle('')
-    setEditingIndex(null)
-  }
-
   return (
     <>
       {/* furniture section */}

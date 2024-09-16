@@ -3,48 +3,37 @@ import { useNavigate } from 'react-router-dom'
 
 function Additem() {
   const [title, setTitle] = useState('')
+  const [price, setPrice] = useState(null)
   const [img, setImg] = useState([])
-  const [price, setPrice] = useState('')
 
-  const [editingIndex, setEditingIndex] = useState(null)
+  const b64Img = (img) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(img)
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = () => reject(error)
+    })
+  }
+
   const nav = useNavigate()
 
-  const [furniture, setFurniture] = useState(() => {
-    const localval = localStorage.getItem('FURNITURES')
-    if (localval == null) return []
-    return JSON.parse(localval)
-  })
-
   useEffect(() => {
-    localStorage.setItem('FURNITURES', JSON.stringify(furniture))
-  }, [furniture])
+    localStorage.setItem('FURNITURES', JSON.stringify(Fi))
+  }, [Fi])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (title === '' && price === '') return addItem(title, img, price)
-  }
-  function addItem(title, img, price) {
-    setFurniture((currentItems) => {
-      return [
-        ...currentItems,
-        { id: crypto.randomUUID(), title: title, img: img, price: price },
-      ]
-    })
-    // console.log(furniture)
-
-    nav('/furniture')
-  }
-
-  const saveItem = () => {
-    const updatedItems = furniture.map((item, i) => {
-      if (i === editingIndex) {
-        return { ...item, text: title, text: img, Number: price }
-      }
-      return item
-    })
-    setFurniture(updatedItems)
-    setTitle('')
-    setEditingIndex(null)
+    const furnitureItem = new FormData()
+    const image = await b64Img(img)
+    furnitureItem.append('title', title)
+    furnitureItem.append('price', price)
+    if (image !== null) {
+      furnitureItem.append('img', image)
+    } else {
+      alert('select an image')
+    }
+    const Fi = Object.fromEntries(furnitureItem)
+    localStorage.setItem('FURNITURES', Fi)
   }
 
   return (
@@ -57,17 +46,24 @@ function Additem() {
             </div>
             <form onSubmit={handleSubmit}>
               <div>
+                <div className='container'>
+                  <img
+                    src={img}
+                    className='card-img'
+                  />
+                </div>
                 <input
                   type='file'
+                  name='img'
                   placeholder='Add image'
-                  // value={img}
                   className='align-content-center'
-                  onChange={(e) => setImg(new FileReader(e.target.files[0]))}
+                  onChange={(e) => setImg(e.target.files[0])}
                 />
               </div>
               <div>
                 <input
                   type='text'
+                  name='title'
                   value={title}
                   placeholder='Add title'
                   onChange={(e) => setTitle(e.target.value)}
@@ -76,17 +72,14 @@ function Additem() {
               <div>
                 <input
                   type='price'
+                  name='price'
                   value={price}
                   placeholder='Enter Price'
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
               <div className='btn_box'>
-                <button
-                  type='submit'
-                  onClick={editingIndex !== null ? saveItem : addItem}>
-                  {editingIndex !== null ? 'Save' : 'Add'}
-                </button>
+                <button type='submit'>Add</button>
               </div>
             </form>
           </div>

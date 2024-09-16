@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: process.env.API_KEY,
+  apiKey: import.meta.env.VITE_API_KEY,
   authDomain: 'jsproject-6252d.firebaseapp.com',
   databaseURL: 'https://jsproject-6252d-default-rtdb.firebaseio.com',
   projectId: 'jsproject-6252d',
@@ -15,4 +15,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
-export const auth = getAuth()
+const auth = getAuth()
+
+export { auth, app }
