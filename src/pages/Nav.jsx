@@ -6,7 +6,6 @@ import Blog from "./Blog";
 import Contact from "./Contact";
 import Furniture from "./Furniture";
 import Additem from "../components/Additem";
-// import Register from "./Register";
 import Login from "./Login";
 import Signup from "./SignUp";
 
@@ -64,7 +63,6 @@ function Nav() {
         <Route
           path="/furniture"
           element={<Furniture furniture={furniture} />}></Route>
-        {/* <Route path="/register" element={<Register />}></Route> */}
         <Route path="/signup" element={<Signup />}></Route>
         <Route
           path="/additem"
