@@ -1,113 +1,101 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import NavSect from "./NavSect";
 
 function Additem() {
-  const [title, setTitle] = useState('')
-  const [price, setPrice] = useState(null)
-  const [img, setImg] = useState([])
-
-  const [item, setItem] = useState(() => {
-    localStorage.setItem('FURNITURES', JSON.stringify(Fi))
-  })
-
+  const [items, setItems] = useState([]);
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState("");
+  const nav = useNavigate();
+  // Load items from local storage when component mounts
   useEffect(() => {
-    localStorage.setItem('FURNITURES', JSON.stringify(item))
-  }, [item])
+    const savedItems = localStorage.getItem("FURNITURES");
+    if (savedItems) {
+      setItems(JSON.parse(savedItems));
+    }
+  }, []);
 
-  const b64Img = (img) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsDataURL(img)
-      reader.onload = () => resolve(reader.result)
-      reader.onerror = () => reject(error)
-    })
-  }
-  const nav = useNavigate()
+  // Save items to local storage whenever items change
+  useEffect(() => {
+    localStorage.setItem("FURNITURES", JSON.stringify(items));
+  }, [items]);
 
-  function addFun(title, price, image) {
-    setItem((currentitems) => {
-      return [
-        ...currentitems,
-        { id: crypto.randomUUID(), title: title, price: price, img: image },
-      ]
-    })
-  }
-  const clearInput = () => {
-    setTitle('')
-    setPrice(null)
-    setImg([])
-  }
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+  const submit = async (e) => {
+    e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const image = await b64Img(img)
-    console.log(item)
+    const furniture = {
+      id: crypto.randomUUID(),
+      Image: image,
+      Title: title,
+      Price: price,
+    };
+    setItems([...items, furniture]);
+    console.log(furniture);
+    setImage("");
+    setTitle("");
+    setPrice("");
 
-    // const furnitureItem = new FormData()
-    // furnitureItem.append('id', crypto.randomUUID())
-    // furnitureItem.append('title', title)
-    // furnitureItem.append('price', price)
-    // if (image !== null) {
-    //   furnitureItem.append('img', image)
-    // } else {
-    //   alert('select an image')
-    // }
-    // const Fi = Object.fromEntries(furnitureItem)
-    addFun(title, price, image)
-    clearInput()
-  }
-
+    setTimeout(() => {
+      nav("/furniture");
+    }, 1000);
+  };
   return (
     <>
-      <section className=' mt-5 contact_section  long_section'>
-        <div className='container'>
-          <div className='form_container col-md-8'>
-            <div className='heading_container'>
+      <NavSect />
+      <section className=" mt-5 contact_section  long_section">
+        <div className="container">
+          <div className="form_container col-md-8">
+            <div className="heading_container">
               <h2>Add Furniture</h2>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={submit}>
               <div>
-                <div className='container'>
-                  <img
-                    src={img}
-                    className='card-img'
-                  />
+                <div className="container">
+                  <img src={image} className="card-img" />
                 </div>
                 <input
-                  type='file'
-                  name='img'
-                  placeholder='Add image'
-                  className='align-content-center'
-                  onChange={(e) => setImg(e.target.files[0])}
+                  type="file"
+                  placeholder="Add image"
+                  className="align-content-center"
+                  onChange={handleImage}
                 />
               </div>
               <div>
                 <input
-                  type='text'
-                  name='title'
+                  type="text"
                   value={title}
-                  placeholder='Add title'
+                  placeholder="Add title"
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
               <div>
                 <input
-                  type='price'
-                  name='price'
+                  type="price"
                   value={price}
-                  placeholder='Enter Price'
+                  placeholder="Enter Price"
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
-              <div className='btn_box'>
-                <button type='submit'>Add</button>
+              <div className="btn_box">
+                <button type="submit">Add</button>
               </div>
             </form>
           </div>
         </div>
       </section>
     </>
-  )
+  );
 }
 
-export default Additem
+export default Additem;
