@@ -6,8 +6,9 @@ import Blog from "./Blog";
 import Contact from "./Contact";
 import Furniture from "./Furniture";
 import Additem from "../components/Additem";
-import Register from "./Register";
+// import Register from "./Register";
 import Login from "./Login";
+import Signup from "./SignUp";
 
 function Nav() {
   // Load items from local storage when component mounts
@@ -28,13 +29,15 @@ function Nav() {
 
   const addFun = (title, image, price) => {
     setFurniture((curr) => {
-      const newFurniture = {
-        id: crypto.randomUUID(),
-        Title: title,
-        Image: image,
-        Price: price,
-      };
-      return [...curr, newFurniture];
+      return [
+        ...curr,
+        {
+          id: crypto.randomUUID(),
+          Title: title,
+          Image: image,
+          Price: price,
+        },
+      ];
     });
   };
   const nav = useNavigate();
@@ -61,7 +64,8 @@ function Nav() {
         <Route
           path="/furniture"
           element={<Furniture furniture={furniture} />}></Route>
-        <Route path="/register" element={<Register />}></Route>
+        {/* <Route path="/register" element={<Register />}></Route> */}
+        <Route path="/signup" element={<Signup />}></Route>
         <Route
           path="/additem"
           element={

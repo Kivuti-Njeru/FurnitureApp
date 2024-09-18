@@ -1,11 +1,11 @@
-import Nav from './pages/Nav'
+import Nav from "./pages/Nav";
 
 function App() {
   return (
     <>
       <Nav />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
