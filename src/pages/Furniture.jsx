@@ -1,16 +1,16 @@
-import React from 'react'
-import Furnituresect from '../components/Furnituresect'
-import Footer from '../components/Footer'
-import NavSect from '../components/NavSect'
+import React from "react";
+import Furnituresect from "../components/Furnituresect";
+import Footer from "../components/Footer";
+import NavSect from "../components/NavSect";
 
-function Furniture() {
+function Furniture({ furniture }) {
   return (
     <>
       <NavSect />
-      <Furnituresect />
+      <Furnituresect furniture={furniture} />
       <Footer />
     </>
-  )
+  );
 }
 
-export default Furniture
+export default Furniture;

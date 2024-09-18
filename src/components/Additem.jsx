@@ -2,53 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavSect from "./NavSect";
 
-function Additem() {
-  const [items, setItems] = useState([]);
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [image, setImage] = useState("");
-  const nav = useNavigate();
-  // Load items from local storage when component mounts
-  useEffect(() => {
-    const savedItems = localStorage.getItem("FURNITURES");
-    if (savedItems) {
-      setItems(JSON.parse(savedItems));
-    }
-  }, []);
-
-  // Save items to local storage whenever items change
-  useEffect(() => {
-    localStorage.setItem("FURNITURES", JSON.stringify(items));
-  }, [items]);
-
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImage(reader.result);
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
-  const submit = async (e) => {
+function Additem({
+  addFun,
+  handleImage,
+  title,
+  setTitle,
+  price,
+  setPrice,
+  image,
+}) {
+  const submit = () => {
     e.preventDefault();
-
-    const furniture = {
-      id: crypto.randomUUID(),
-      Image: image,
-      Title: title,
-      Price: price,
-    };
-    setItems([...items, furniture]);
-    console.log(furniture);
-    setImage("");
+    if (title && price && image === "") return;
+    addFun(title, price, image);
     setTitle("");
     setPrice("");
-
-    setTimeout(() => {
-      nav("/furniture");
-    }, 1000);
+    setImage("");
   };
   return (
     <>

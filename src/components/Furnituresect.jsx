@@ -1,16 +1,6 @@
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Furniture() {
-  const [furniture, setFurniture] = useState([]);
-
-  useEffect(() => {
-    const savedItems = localStorage.getItem("FURNITURES");
-    if (savedItems) {
-      setFurniture(JSON.parse(savedItems));
-    }
-  }, []);
-
+function Furniture({ furniture }) {
   return (
     <>
       {/* furniture section */}
@@ -24,9 +14,8 @@ function Furniture() {
               a passage of Lorem Ipsum, you need to be sure there isn't an
             </p>
           </div>
-
           <div className="row">
-            {furniture.length === 0 && "No Furnitures"}
+            {/* {furniture.length === 0 && "No Furnitures"} */}
             {furniture
               ? furniture.map((furn) => {
                   return (
