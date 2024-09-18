@@ -10,7 +10,6 @@ export default function Signup() {
   const { signUp } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  //   const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -23,7 +22,6 @@ export default function Signup() {
       setError("");
       setLoading(true);
       await signUp(emailRef.current.value, passwordRef.current.value);
-      //   history.push("/");
     } catch {
       setError("Failed to create an account");
     }
