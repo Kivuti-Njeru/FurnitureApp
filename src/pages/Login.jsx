@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { AuthContext } from '../context/AuthContext'
 
 export default function Login() {
 	const emailRef = useRef()
@@ -9,6 +10,8 @@ export default function Login() {
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
 	const nav = useNavigate()
+
+	const { dispatch } = useContext(AuthContext)
 
 	function handleSubmit(e) {
 		e.preventDefault()
@@ -19,8 +22,13 @@ export default function Login() {
 		try {
 			setError('')
 			setLoading(true)
-			signInWithEmailAndPassword(auth, mail, password)
-			nav('/')
+			signInWithEmailAndPassword(auth, mail, password).then(
+				(userCredential) => {
+					const user = userCredential.user
+					dispatch({ type: 'LOGIN', payload: user })
+					nav('/')
+				}
+			)
 		} catch {
 			setError('Failed to log in')
 		}
@@ -37,24 +45,13 @@ export default function Login() {
 					<Form onSubmit={handleSubmit}>
 						<Form.Group id='email'>
 							<Form.Label>Email</Form.Label>
-							<Form.Control
-								type='email'
-								ref={emailRef}
-								required
-							/>
+							<Form.Control type='email' ref={emailRef} required />
 						</Form.Group>
 						<Form.Group id='password'>
 							<Form.Label>Password</Form.Label>
-							<Form.Control
-								type='password'
-								ref={passwordRef}
-								required
-							/>
+							<Form.Control type='password' ref={passwordRef} required />
 						</Form.Group>
-						<Button
-							disabled={loading}
-							className='w-100'
-							type='submit'>
+						<Button disabled={loading} className='w-100' type='submit'>
 							Log In
 						</Button>
 					</Form>
