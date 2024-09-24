@@ -11,35 +11,49 @@ import Signup from './SignUp'
 import { AuthContext } from '../context/AuthContext'
 
 function Nav() {
-	const { currUser } = useContext(AuthContext)
+  const { currUser } = useContext(AuthContext)
 
-	const RequireAuth = ({ children }) => {
-		return currUser ? children : <Navigate to='/login' />
-	}
-	console.log(currUser)
+  const RequireAuth = ({ children }) => {
+    return currUser ? children : <Navigate to='/login' />
+  }
 
-	return (
-		<>
-			<Routes>
-				<Route path='/login' element={<Login />} />
-				<Route
-					path='/'
-					index
-					element={
-						<RequireAuth>
-							<Home />
-						</RequireAuth>
-					}
-				/>
-				<Route path='/about' element={<About />}></Route>
-				<Route path='/blog' element={<Blog />}></Route>
-				<Route path='/contact' element={<Contact />}></Route>
-				<Route path='/furniture' element={<Furniture />}></Route>
-				<Route path='/signup' element={<Signup />}></Route>
-				<Route path='/additem' element={<Additem />}></Route>
-			</Routes>
-		</>
-	)
+  return (
+    <>
+      <Routes>
+        <Route
+          path='/login'
+          element={<Login />}
+        />
+        <Route
+          path='/'
+          index
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='/about'
+          element={<About />}></Route>
+        <Route
+          path='/blog'
+          element={<Blog />}></Route>
+        <Route
+          path='/contact'
+          element={<Contact />}></Route>
+        <Route
+          path='/furniture'
+          element={<Furniture />}></Route>
+        <Route
+          path='/signup'
+          element={<Signup />}></Route>
+        <Route
+          path='/additem'
+          element={<Additem />}></Route>
+      </Routes>
+    </>
+  )
 }
 
 export default Nav
