@@ -1,27 +1,18 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import NavSect from './NavSect'
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
+import { AuthContext } from '../context/AuthContext'
 import { db } from '../databaseConfig'
 
 function Additem() {
   const titleRef = useRef()
   const priceRef = useRef()
   const [image, setImage] = useState([])
-  const convertImageTo64Bit = f => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsDataURL(f)
-      reader.onload = () => resolve(reader.result)
-      reader.onerror = error => reject(error)
-    })
-  }
-  const submit = async e => {
+
+  const { currUser } = useContext(AuthContext)
+
+  const submit = e => {
     e.preventDefault()
-    await convertImageTo64Bit(image)
-    const res = await setDoc(doc(db, 'Furnitures'), {
-      timestamp: serverTimestamp(),
-    })
-    console.log(res.id)
+    console.log(currUser.uid)
   }
   return (
     <>
