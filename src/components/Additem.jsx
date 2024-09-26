@@ -26,10 +26,7 @@ function Additem() {
             <form>
               <div>
                 <div className='container'>
-                  <img
-                    src={image}
-                    className='card-img'
-                  />
+                  <img src={image} className='card-img' />
                 </div>
                 <input
                   type='file'
@@ -41,23 +38,13 @@ function Additem() {
                 />
               </div>
               <div>
-                <input
-                  type='text'
-                  placeholder='Add title'
-                  ref={titleRef}
-                />
+                <input type='text' placeholder='Add title' ref={titleRef} />
               </div>
               <div>
-                <input
-                  type='price'
-                  placeholder='Enter Price'
-                  ref={priceRef}
-                />
+                <input type='price' placeholder='Enter Price' ref={priceRef} />
               </div>
               <div className='btn_box'>
-                <button
-                  type='submit'
-                  onClick={submit}>
+                <button type='submit' onClick={submit}>
                   Add
                 </button>
               </div>

@@ -17,22 +17,13 @@ function Contact() {
                 </div>
                 <form action>
                   <div>
-                    <input
-                      type='text'
-                      placeholder='Your Name'
-                    />
+                    <input type='text' placeholder='Your Name' />
                   </div>
                   <div>
-                    <input
-                      type='text'
-                      placeholder='Phone Number'
-                    />
+                    <input type='text' placeholder='Phone Number' />
                   </div>
                   <div>
-                    <input
-                      type='email'
-                      placeholder='Email'
-                    />
+                    <input type='email' placeholder='Email' />
                   </div>
                   <div>
                     <input
