@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { collection, query, where, getDocs } from 'firebase/firestore'
 import { db } from '../databaseConfig'
 import { AuthContext } from '../context/AuthContext'
@@ -7,6 +7,7 @@ import { useEffect, useState, useContext } from 'react'
 function Furniture() {
   const { currUser } = useContext(AuthContext)
   const [furnitures, setFurnitures] = useState([])
+  const { id } = useParams()
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -59,9 +60,10 @@ function Furniture() {
                                 <span>$ </span>
                                 {furniture.data.price}
                               </h6>
+                              <Link to={'/furniture' + furniture.id}>
+                                view item
+                              </Link>
                             </div>
-                            <Link to='/additem'>Update</Link>
-                            <Link>Delete</Link>
                           </div>
                         </div>
                       </div>
@@ -71,7 +73,7 @@ function Furniture() {
               : 'No Furnitures'}
           </div>
         </div>
-        <div className='container'>
+        <div className='container mt-4'>
           <div className='heading_container'>
             <Link to='/additem'>Add item</Link>
           </div>
