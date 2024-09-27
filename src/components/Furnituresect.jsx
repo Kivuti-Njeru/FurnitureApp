@@ -1,6 +1,31 @@
 import { Link } from 'react-router-dom'
+import { collection, query, where, getDocs } from 'firebase/firestore'
+import { db } from '../databaseConfig'
+import { AuthContext } from '../context/AuthContext'
+import { useEffect, useState, useContext } from 'react'
 
-function Furniture({ furniture }) {
+function Furniture() {
+  const { currUser } = useContext(AuthContext)
+  const [furnitures, setFurnitures] = useState([])
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      if (currUser) {
+        const q = query(
+          collection(db, 'Furnitures'),
+          where('uid', '==', currUser.uid)
+        )
+        const querySnapshot = await getDocs(q)
+        const docs = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+        setFurnitures(docs)
+      }
+    }
+
+    fetchDocuments()
+  }, [currUser])
   return (
     <>
       {/* furniture section */}
@@ -15,21 +40,24 @@ function Furniture({ furniture }) {
             </p>
           </div>
           <div className='row'>
-            {furniture
-              ? furniture.map(furn => {
+            {furnitures
+              ? furnitures.map(furniture => {
                   return (
                     <>
-                      <div className='col-md-6 col-lg-4' key={furn.id}>
+                      <div className='col-md-6 col-lg-4' key={furniture.id}>
                         <div className='box'>
                           <div className='img-box'>
-                            <img src={furn.Image} alt={furn.Title} />
+                            <img
+                              src={furniture.data.imageUrl}
+                              alt={furniture.data.name}
+                            />
                           </div>
                           <div className='detail-box'>
-                            <h5>{furn.Title}</h5>
+                            <h5>{furniture.data.name}</h5>
                             <div className='price_box'>
                               <h6 className='price_heading'>
                                 <span>$ </span>
-                                {furn.Price}
+                                {furniture.data.price}
                               </h6>
                             </div>
                             <Link to='/additem'>Update</Link>
