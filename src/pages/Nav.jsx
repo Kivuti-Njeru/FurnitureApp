@@ -5,7 +5,10 @@ import About from './About'
 import Blog from './Blog'
 import Contact from './Contact'
 import Furniture from './Furniture'
+<<<<<<< HEAD
 import FurnitureItem from '../components/FurnitureItem'
+=======
+>>>>>>> f9e7c7e (🚀)
 import Additem from '../components/Additem'
 import Login from './Login'
 import Signup from './SignUp'
@@ -21,7 +24,14 @@ function Nav() {
   return (
     <>
       <Routes>
+<<<<<<< HEAD
         <Route path='/login' element={<Login />} />
+=======
+        <Route
+          path='/login'
+          element={<Login />}
+        />
+>>>>>>> f9e7c7e (🚀)
         <Route
           path='/'
           index
@@ -31,6 +41,7 @@ function Nav() {
             </RequireAuth>
           }
         />
+<<<<<<< HEAD
         <Route path='/about' element={<About />}></Route>
         <Route path='/blog' element={<Blog />}></Route>
         <Route path='/contact' element={<Contact />}></Route>
@@ -38,6 +49,26 @@ function Nav() {
         <Route path='furniture/:id' element={<FurnitureItem />} />
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/additem' element={<Additem />}></Route>
+=======
+        <Route
+          path='/about'
+          element={<About />}></Route>
+        <Route
+          path='/blog'
+          element={<Blog />}></Route>
+        <Route
+          path='/contact'
+          element={<Contact />}></Route>
+        <Route
+          path='/furniture'
+          element={<Furniture />}></Route>
+        <Route
+          path='/signup'
+          element={<Signup />}></Route>
+        <Route
+          path='/additem'
+          element={<Additem />}></Route>
+>>>>>>> f9e7c7e (🚀)
       </Routes>
     </>
   )
