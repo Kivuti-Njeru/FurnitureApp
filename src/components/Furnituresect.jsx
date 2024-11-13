@@ -57,7 +57,7 @@ function Furniture() {
                             <h5>{furniture.data.name}</h5>
                             <div className='price_box'>
                               <h6 className='price_heading'>
-                                <span>$ </span>
+                                <span>Ksh</span>
                                 {furniture.data.price}
                               </h6>
                               <Link to={'/furniture' + furniture.id}>

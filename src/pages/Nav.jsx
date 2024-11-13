@@ -35,7 +35,7 @@ function Nav() {
         <Route path='/blog' element={<Blog />}></Route>
         <Route path='/contact' element={<Contact />}></Route>
         <Route path='/furniture' element={<Furniture />}></Route>
-        <Route path='/furniture/:id' element={<FurnitureItem />} />
+        <Route path='furniture/:id' element={<FurnitureItem />} />
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/additem' element={<Additem />}></Route>
       </Routes>
