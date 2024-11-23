@@ -5,10 +5,7 @@ import About from './About'
 import Blog from './Blog'
 import Contact from './Contact'
 import Furniture from './Furniture'
-<<<<<<< HEAD
 import FurnitureItem from '../components/FurnitureItem'
-=======
->>>>>>> f9e7c7e (🚀)
 import Additem from '../components/Additem'
 import Login from './Login'
 import Signup from './SignUp'
