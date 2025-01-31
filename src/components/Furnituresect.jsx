@@ -36,8 +36,9 @@ function Furniture() {
           <div className='heading_container'>
             <h2>Our Furniture</h2>
             <p>
-              which don't look even slightly believable. If you are going to use
-              a passage of Lorem Ipsum, you need to be sure there isn't an
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non,
+              aspernatur minus. Dolor deserunt amet repudiandae! Optio nemo
+              similique repellendus voluptatum?
             </p>
           </div>
           <div className='row'>
